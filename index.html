@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jookyu Manhwa Preset · Chronicles Preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&display=swap');
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 15%,#fffdf9 0 18%,transparent 40%),linear-gradient(135deg,#eee8e4,#e9edf2 55%,#f2e4e8);font-family:"Cormorant Garamond",serif;color:#596273}
+.chronicles{position:relative;width:min(410px,100%);overflow:hidden;padding:18px;border:1px solid #cfae9a;border-radius:24px;background:linear-gradient(145deg,rgba(255,252,247,.95),rgba(246,236,236,.94) 52%,rgba(235,241,246,.94));box-shadow:0 18px 50px rgba(85,83,92,.16),inset 0 1px 0 rgba(255,255,255,.95)}
+.chronicles:before{content:"";position:absolute;inset:8px;border:1px dashed rgba(181,138,98,.38);border-radius:18px;pointer-events:none}
+.corner{position:absolute;width:58px;height:58px;opacity:.62;color:#b58a62}.tl{top:0;left:0}.tr{top:0;right:0;transform:scaleX(-1)}.bl{bottom:0;left:0;transform:scaleY(-1)}
+.hero{position:relative;z-index:1;text-align:center;padding:2px 20px 10px}
+.kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#c39b7d}
+.title{margin:1px 0 3px;font-family:Marcellus,serif;font-size:24px;letter-spacing:.08em;color:#9b6e56}
+.subtitle{font-size:14px;color:#c7a88f}
+.meta{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px;margin:8px 0}
+.meta-card,.info,.status{position:relative;border:1px solid rgba(181,138,98,.24);background:rgba(255,255,255,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.76),0 5px 12px rgba(83,96,113,.04);border-radius:16px}
+.meta-card{padding:10px 7px;text-align:center;transition:.18s ease}.meta-card:hover,.info:hover,.status:hover{transform:translateY(-2px);border-color:rgba(181,138,98,.48);box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 8px 18px rgba(83,96,113,.08)}
+.label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#b88f76}
+.value{margin-top:2px;font-size:18px;font-weight:600;color:#5b6678}
+.icon{height:18px;margin-bottom:4px;color:#b58a62}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.info{padding:10px 12px}.info.full{grid-column:1/-1}
+.info .v{font-size:17px;font-weight:600;color:#5a6577}.event{font-size:16px;line-height:1.2;color:#806b79}
+.divider{height:1px;margin:12px 20px;background:linear-gradient(90deg,transparent,rgba(181,138,98,.46),transparent)}
+.status{padding:11px 12px}
+.status-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.status-head strong{font-family:Marcellus,serif;font-size:14px;letter-spacing:.08em;color:#9b6e56}.status-head span{font-size:11px;color:#bda18f}
+.stat{margin:7px 0}.row{display:flex;justify-content:space-between;align-items:end;font-size:13px}.row b{font-size:16px;color:#5e6a7b}.track{height:9px;margin-top:4px;border-radius:99px;background:rgba(113,124,138,.1);border:1px solid rgba(255,255,255,.85);overflow:hidden;box-shadow:inset 0 1px 2px rgba(83,96,113,.07)}
+.fill{width:0;height:100%;border-radius:99px;animation:fillPulse 3.8s ease-in-out infinite;transform-origin:left;box-shadow:0 0 10px rgba(181,138,98,.2)}
+.vigor{--end:82%;background:linear-gradient(90deg,#d6b7a4,#c49386)}.mana{--end:74%;background:linear-gradient(90deg,#b5cae3,#8baed3);box-shadow:0 0 14px rgba(126,168,213,.28)}.energy{--end:68%;background:linear-gradient(90deg,#d8b8cf,#b99bc0)}
+.fill{animation-name:fillPulse}
+@keyframes fillPulse{0%,12%{width:0}42%,68%{width:var(--end)}100%{width:0}}
+.motif{position:absolute;right:10px;bottom:8px;width:100px;height:74px;opacity:.18;color:#b58a62;pointer-events:none}
+@media(max-width:380px){.meta{grid-template-columns:1fr 1fr}.meta-card:last-child{grid-column:1/-1}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="chronicles">
+<svg class="corner tl" viewBox="0 0 100 100"><path d="M7 86V18Q7 7 18 7H86M25 63V25Q25 20 30 20H68" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 31Q34 30 49 12" fill="none" stroke="currentColor"/></svg>
+<svg class="corner tr" viewBox="0 0 100 100"><path d="M7 86V18Q7 7 18 7H86M25 63V25Q25 20 30 20H68" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 31Q34 30 49 12" fill="none" stroke="currentColor"/></svg>
+<div class="hero">
+  <div class="kicker">Empire archive</div>
+  <div class="title">ХРОНИКИ ИМПЕРИИ</div>
+  <div class="subtitle">──── ✦ ────</div>
+</div>
+<div class="meta">
+  <div class="meta-card"><div class="label">День</div><div class="value">14</div></div>
+  <div class="meta-card"><div class="label">Месяц</div><div class="value">Серебряной Луны</div></div>
+  <div class="meta-card"><div class="label">Время</div><div class="value">00:17</div><div style="font-size:11px;color:#b59d92">поздняя ночь</div></div>
+</div>
+<div class="grid">
+  <div class="info"><div class="label">Погода</div><div class="v">Ясная ночь</div><div style="font-size:12px;color:#9b8b8e">−3°C</div></div>
+  <div class="info"><div class="label">Место</div><div class="v">Северное крыло дворца</div></div>
+  <div class="info full"><div class="label">Событие</div><div class="event">Тайная аудиенция с наследным принцем</div></div>
+</div>
+<div class="divider"></div>
+<div class="status">
+  <div class="status-head"><strong>СОСТОЯНИЕ</strong><span>текущий запас</span></div>
+  <div class="stat"><div class="row"><span>Бодрость</span><b>82%</b></div><div class="track"><div class="fill vigor"></div></div></div>
+  <div class="stat"><div class="row"><span>Мана</span><b>74%</b></div><div class="track"><div class="fill mana"></div></div></div>
+  <div class="stat"><div class="row"><span>Энергия</span><b>68%</b></div><div class="track"><div class="fill energy"></div></div></div>
+</div>
+<svg class="motif" viewBox="0 0 160 110"><path d="M11 92V53h18V38h19v15h8v39M62 92V26h26v66M94 92V45h16v-9h16v56" fill="none" stroke="currentColor" stroke-width="4"/><path d="M8 92h140M118 64q18-10 26 7" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+</div>
+</body>
+</html>
