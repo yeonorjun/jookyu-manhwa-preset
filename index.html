@@ -8,182 +8,270 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&display=swap');
 *{box-sizing:border-box}
 :root{
-  --paper:#fbf5ed;
-  --paper2:#f4e8e7;
-  --mist:#e9f0f5;
+  --paper:#fbf4ec;
+  --paper2:#f7e9e8;
+  --mist:#eaf2f6;
   --gold:#b58a62;
-  --goldSoft:#d4b79d;
-  --ink:#596476;
-  --rose:#c894a4;
-  --blue:#9cbfe0;
-  --lav:#b9a4c9;
+  --gold2:#d5b18f;
+  --rose:#c995a5;
+  --blue:#9dbddd;
+  --ink:#5f6675;
+  --muted:#ab9595;
 }
 body{
-  margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;
+  margin:0;min-height:100vh;display:grid;place-items:center;padding:26px;
   background:
-    radial-gradient(circle at 13% 15%,rgba(255,255,255,.95),transparent 28%),
-    radial-gradient(circle at 88% 80%,rgba(216,226,236,.55),transparent 32%),
-    linear-gradient(135deg,#eee8e4 0%,#e7edf1 50%,#f3e5e8 100%);
-  font-family:"Cormorant Garamond",serif;color:var(--ink);
+    radial-gradient(circle at 18% 10%,rgba(255,255,255,.95),transparent 24%),
+    radial-gradient(circle at 85% 86%,rgba(183,211,229,.42),transparent 30%),
+    linear-gradient(140deg,#e9e3df 0%,#e8eef2 52%,#f1e2e7 100%);
+  font-family:"Cormorant Garamond",Georgia,serif;color:var(--ink);
 }
-.chronicles{
-  position:relative;width:min(420px,100%);overflow:hidden;padding:18px 18px 16px;
-  border:1px solid rgba(181,138,98,.48);border-radius:24px;
+.chronicle{
+  position:relative;width:min(430px,100%);overflow:hidden;padding:16px 16px 14px;
+  border:1px solid rgba(181,138,98,.50);border-radius:27px;
   background:
-    radial-gradient(circle at 18% 8%,rgba(255,255,255,.95),transparent 26%),
-    radial-gradient(circle at 86% 86%,rgba(210,224,236,.42),transparent 32%),
-    linear-gradient(145deg,rgba(251,245,237,.98),rgba(244,232,231,.97) 54%,rgba(234,240,245,.98));
-  box-shadow:0 22px 45px rgba(80,84,93,.16),inset 0 1px 0 rgba(255,255,255,.92),inset 0 -8px 24px rgba(181,138,98,.035);
-  animation:floatPlaque 5.8s ease-in-out infinite;
+    radial-gradient(circle at 16% 12%,rgba(255,255,255,.96),transparent 27%),
+    radial-gradient(circle at 88% 78%,rgba(209,226,237,.40),transparent 34%),
+    linear-gradient(145deg,rgba(251,244,236,.99),rgba(247,233,233,.975) 55%,rgba(235,242,246,.985));
+  box-shadow:0 25px 58px rgba(78,82,91,.18),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -10px 30px rgba(181,138,98,.045);
+  animation:floatPlaque 6.2s ease-in-out infinite;
 }
 @keyframes floatPlaque{
-  0%,100%{transform:translateY(0);box-shadow:0 22px 45px rgba(80,84,93,.16),inset 0 1px 0 rgba(255,255,255,.92),inset 0 -8px 24px rgba(181,138,98,.035)}
-  50%{transform:translateY(-7px);box-shadow:0 28px 52px rgba(80,84,93,.19),inset 0 1px 0 rgba(255,255,255,.96),inset 0 -8px 24px rgba(181,138,98,.045)}
+  0%,100%{transform:translateY(0);box-shadow:0 25px 58px rgba(78,82,91,.18),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -10px 30px rgba(181,138,98,.045)}
+  50%{transform:translateY(-7px);box-shadow:0 31px 64px rgba(78,82,91,.21),inset 0 1px 0 rgba(255,255,255,1),inset 0 -10px 30px rgba(181,138,98,.055)}
 }
-.chronicles:before{
-  content:"";position:absolute;inset:8px;border:1px solid rgba(181,138,98,.18);border-radius:18px;
-  pointer-events:none;box-shadow:inset 0 0 20px rgba(255,255,255,.36);
+.chronicle:before{
+  content:"";position:absolute;inset:7px;border:1px solid rgba(181,138,98,.17);
+  border-radius:21px;pointer-events:none;box-shadow:inset 0 0 25px rgba(255,255,255,.34);
 }
-.ornament{
-  position:absolute;pointer-events:none;opacity:.28;color:var(--gold);
+.glow{
+  position:absolute;z-index:0;width:145px;height:145px;right:-20px;top:88px;border-radius:50%;
+  background:rgba(166,196,224,.22);filter:blur(34px);animation:softGlow 7s ease-in-out infinite;
 }
-.ornament.topRight{right:13px;top:12px;width:70px}
-.ornament.bottomRight{right:10px;bottom:9px;width:118px;opacity:.16}
-.ornament.leftBottom{left:8px;bottom:17px;width:50px;opacity:.12}
-.hero{position:relative;z-index:2;text-align:center;padding:2px 24px 8px}
-.kicker{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#c09a7e}
-.title{margin:2px 0 2px;font-family:Marcellus,serif;font-size:24px;letter-spacing:.075em;color:#9b6d58}
-.subtitle{font-size:14px;color:#d0af94;letter-spacing:.1em}
-.dateTime{
-  position:relative;z-index:2;display:grid;grid-template-columns:1.35fr .85fr;gap:9px;margin-top:8px;
+@keyframes softGlow{0%,100%{transform:scale(.88);opacity:.50}50%{transform:scale(1.17);opacity:.92}}
+.petal{
+  position:absolute;z-index:3;width:9px;height:5px;border-radius:100% 0 100% 0;
+  background:linear-gradient(135deg,#e9aebf,#f5d4de);opacity:.55;pointer-events:none;filter:drop-shadow(0 0 4px rgba(217,151,173,.28));
+  animation:petalDrift 6.2s ease-in-out infinite;
 }
-.block{
-  position:relative;overflow:hidden;border:1px solid rgba(181,138,98,.25);border-radius:17px;
-  background:rgba(255,255,255,.34);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.78),0 7px 15px rgba(83,96,113,.045);
-  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+.p1{left:25%;top:31%;animation-delay:-1.4s}.p2{left:49%;top:13%;animation-delay:-4s}
+.p3{right:22%;top:47%;animation-delay:-2.6s}.p4{right:42%;bottom:23%;animation-delay:-5s}
+@keyframes petalDrift{
+  0%,100%{transform:translate(0,0) rotate(25deg);opacity:.22}
+  50%{transform:translate(11px,-8px) rotate(62deg);opacity:.82}
 }
-.block:hover{transform:translateY(-2px);border-color:rgba(181,138,98,.46);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 20px rgba(83,96,113,.08)}
-.date{padding:11px 13px 12px;display:flex;align-items:center;gap:11px}
-.dateMark{
-  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;flex:0 0 auto;
-  background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(244,226,226,.58));
-  border:1px solid rgba(181,138,98,.21);box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+.art{position:absolute;z-index:1;pointer-events:none;user-select:none}
+.content{position:relative;z-index:5}
+.header{text-align:center;padding:2px 50px 9px}
+.kicker{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#bb957d}
+.title{margin:3px 0 1px;font-family:Marcellus,Georgia,serif;font-size:23px;letter-spacing:.065em;color:#946c58;text-shadow:0 1px 0 #fff}
+.rule{font-size:11px;letter-spacing:.33em;color:#d1ad8d}
+.topGrid{display:grid;grid-template-columns:1.14fr .86fr;gap:9px}
+.panel{
+  position:relative;overflow:hidden;border:1px solid rgba(181,138,98,.25);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.84),0 8px 18px rgba(89,91,100,.05);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
 }
-.dateMark strong{font-family:Marcellus,serif;font-size:25px;line-height:1;color:#a67761}
-.eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b88f77}
-.dateMonth{margin-top:1px;font-size:18px;font-weight:600;color:#5d6879;line-height:1.05}
-.dateHint{font-size:11px;color:#b7a19a;margin-top:2px}
-.time{padding:11px 13px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.timeValue{margin-top:2px;font-size:19px;font-weight:600;color:#5d6879}
-.timeHint{font-size:11px;color:#b7a19a}
-.infoGrid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
-.info{padding:11px 13px;min-height:74px}
-.info .topline{display:flex;align-items:center;gap:7px;margin-bottom:3px}
-.iconDot{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.53);border:1px solid rgba(181,138,98,.18);color:#b58a62;font-size:12px}
-.mainValue{font-size:17px;font-weight:600;line-height:1.05;color:#5b6678}
-.subValue{font-size:11px;color:#b19b98;margin-top:2px}
-.scene{position:relative;z-index:2;margin-top:9px;padding:11px 13px 12px}
-.sceneRow{display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start}
-.sceneRow+.sceneRow{margin-top:8px;padding-top:8px;border-top:1px solid rgba(181,138,98,.15)}
-.sceneIcon{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,.5);border:1px solid rgba(181,138,98,.18);color:#b58a62}
-.sceneValue{font-size:16px;font-weight:600;color:#5c687a;line-height:1.15}
-.eventValue{font-size:15px;color:#806d78;line-height:1.18}
-.divider{position:relative;z-index:2;height:1px;margin:12px 28px 9px;background:linear-gradient(90deg,transparent,rgba(181,138,98,.44),transparent)}
-.status{position:relative;z-index:2;padding:0 7px 2px}
+.panel:hover{transform:translateY(-3px);border-color:rgba(181,138,98,.48);box-shadow:inset 0 1px 0 rgba(255,255,255,.94),0 12px 26px rgba(89,91,100,.09)}
+.datePanel{
+  padding:11px 12px;border-radius:19px 25px 17px 21px;
+  background:linear-gradient(135deg,rgba(255,252,247,.79),rgba(246,228,230,.67));
+  display:flex;align-items:center;gap:11px;
+}
+.day{
+  width:45px;height:45px;border-radius:15px;display:grid;place-items:center;flex:none;
+  background:linear-gradient(145deg,rgba(255,255,255,.76),rgba(241,218,224,.64));
+  border:1px solid rgba(181,138,98,.20);box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 0 14px rgba(213,177,150,.11);
+  font-family:Marcellus,Georgia,serif;font-size:25px;color:#9f7180;
+}
+.small{font-size:9px;letter-spacing:.17em;text-transform:uppercase;color:#b27e6e}
+.month{margin-top:2px;font-size:17px;line-height:1.02;font-weight:600;color:#596575}
+.dateSub{margin-top:3px;font-size:10px;color:#b09a96}
+.momentPanel{
+  padding:10px 11px;border-radius:24px 18px 22px 16px;
+  background:linear-gradient(135deg,rgba(243,238,246,.76),rgba(237,247,242,.73));
+  display:flex;align-items:center;gap:8px;
+}
+.momentArt{width:28px;height:36px;flex:none;filter:drop-shadow(0 0 9px rgba(189,157,122,.18))}
+.moment{font-size:17px;line-height:1.02;font-weight:600;color:#596475;margin-top:2px}
+.weather{font-size:12px;color:#806d76;margin-top:2px}
+.moonArt{width:33px;height:33px;flex:none;margin-left:auto;filter:drop-shadow(0 0 10px rgba(155,186,221,.28))}
+.scene{
+  margin-top:9px;padding:11px 12px 12px;border-radius:22px 18px 24px 17px;
+  background:linear-gradient(145deg,rgba(255,252,247,.63),rgba(247,239,239,.52));
+}
+.sceneArt{
+  position:absolute;right:-10px;bottom:-14px;width:205px;height:124px;object-fit:contain;opacity:.28;
+  filter:saturate(.76) drop-shadow(0 0 15px rgba(155,183,207,.16));
+}
+.sceneInner{position:relative;z-index:2}
+.sceneHead{display:flex;justify-content:space-between;align-items:center;padding-bottom:7px;border-bottom:1px solid rgba(181,138,98,.17)}
+.sceneTitle{font-family:Marcellus,Georgia,serif;font-size:12px;letter-spacing:.12em;color:#986e5e}
+.spark{font-size:13px;color:#c9a17f;animation:spark 2.8s ease-in-out infinite}
+@keyframes spark{0%,100%{opacity:.30;transform:scale(.84) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(12deg)}}
+.sceneRow{display:grid;grid-template-columns:24px 1fr;gap:8px;margin-top:9px}
+.sceneMark{
+  width:24px;height:24px;border-radius:9px;display:grid;place-items:center;
+  background:rgba(255,255,255,.55);border:1px solid rgba(181,138,98,.17);color:#b58a62;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);font-size:11px;
+}
+.sceneLabel{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#b37f6f}
+.sceneValue{font-size:16px;line-height:1.08;font-weight:600;color:#596575}
+.eventValue{font-size:15px;line-height:1.15;color:#796872}
+.status{
+  margin-top:10px;padding:10px 12px 9px;border-radius:18px 23px 17px 21px;
+  background:linear-gradient(135deg,rgba(255,251,247,.61),rgba(238,245,248,.51));
+}
 .statusHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:7px}
-.statusTitle{font-family:Marcellus,serif;font-size:13px;letter-spacing:.11em;color:#9b6d58}
-.statusNote{font-size:11px;color:#bda49a}
-.stat{margin:8px 0 10px}
-.statRow{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
-.statRow b{font-size:15px;color:#5f6b7b}
-.track{height:8px;margin-top:4px;border-radius:999px;background:rgba(108,120,135,.10);border:1px solid rgba(255,255,255,.86);overflow:hidden;box-shadow:inset 0 1px 2px rgba(83,96,113,.08)}
-.fill{height:100%;width:var(--low);border-radius:999px;box-shadow:0 0 10px var(--glow);animation:resourceDrift var(--speed) ease-in-out infinite var(--delay);will-change:width}
-@keyframes resourceDrift{
-  0%{width:var(--low)}
-  36%{width:var(--high)}
-  60%{width:var(--high)}
-  100%{width:var(--low)}
+.statusTitle{font-family:Marcellus,Georgia,serif;font-size:12px;letter-spacing:.12em;color:#956c5b}
+.statusNote{font-size:10px;color:#baa19a}
+.stat{margin:8px 0 9px}
+.statRow{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:#6b6870}
+.statRow b{font-size:15px;color:#5c6878}
+.track{
+  height:8px;margin-top:4px;border-radius:999px;overflow:hidden;
+  background:rgba(100,112,126,.08);border:1px solid rgba(255,255,255,.9);
+  box-shadow:inset 0 1px 2px rgba(83,96,113,.08);
 }
-.vigor{--low:70%;--high:82%;--speed:5.7s;--delay:-1.6s;--glow:rgba(197,148,134,.28);background:linear-gradient(90deg,#d8b8a9,#c99589)}
-.magic{--low:61%;--high:74%;--speed:7.4s;--delay:-3.9s;--glow:rgba(118,163,212,.34);background:linear-gradient(90deg,#bed4e7,#8daed2)}
-.energy{--low:54%;--high:68%;--speed:6.45s;--delay:-2.4s;--glow:rgba(183,158,194,.28);background:linear-gradient(90deg,#dbc5df,#b69bc0)}
-.statusFooter{display:flex;justify-content:center;margin-top:3px;font-size:10px;letter-spacing:.12em;color:#c2a797}
-@media(max-width:380px){
- .dateTime{grid-template-columns:1fr}
- .infoGrid{grid-template-columns:1fr}
- .chronicles{padding:16px 14px 14px}
+.fill{
+  height:100%;border-radius:999px;width:var(--lo);
+  animation:drift var(--speed) ease-in-out infinite;animation-delay:var(--delay);
+  box-shadow:0 0 12px var(--glow);will-change:width;
 }
+@keyframes drift{
+  0%,100%{width:var(--lo)}
+  42%,63%{width:var(--hi)}
+}
+.vigor{--lo:71%;--hi:82%;--speed:5.8s;--delay:-1.1s;--glow:rgba(200,149,139,.30);background:linear-gradient(90deg,#d9b8ad,#c58e86)}
+.magic{--lo:62%;--hi:74%;--speed:7.7s;--delay:-4.0s;--glow:rgba(116,164,216,.34);background:linear-gradient(90deg,#c6dbec,#88acd2)}
+.energy{--lo:53%;--hi:68%;--speed:6.6s;--delay:-2.7s;--glow:rgba(185,160,198,.30);background:linear-gradient(90deg,#decae2,#b69bc0)}
+.resourceGem{
+  position:absolute;left:-7px;bottom:7px;width:38px;height:38px;opacity:.13;transform:rotate(16deg);
+  background:linear-gradient(145deg,#fff,#d6c1d9);clip-path:polygon(50% 0,100% 30%,82% 100%,18% 100%,0 30%);
+  box-shadow:0 0 20px rgba(152,132,189,.24);
+}
+.footer{text-align:center;margin-top:7px;font-size:9px;letter-spacing:.22em;color:#bc9882}
+.footer:before,.footer:after{content:"";display:inline-block;width:34px;height:1px;vertical-align:middle;background:linear-gradient(90deg,transparent,#caa477);margin:0 7px}
+.footer:after{background:linear-gradient(90deg,#caa477,transparent)}
+@media(max-width:390px){.topGrid{grid-template-columns:1fr}.header{padding-left:38px;padding-right:38px}}
 </style>
 </head>
 <body>
-<div class="chronicles">
-<svg class="ornament topRight" viewBox="0 0 90 70" aria-hidden="true"><path d="M7 51C22 18 46 8 78 9M18 60C31 44 47 34 69 30M56 17c7-5 16-6 23-4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M47 11c5 7 5 13 0 20-5-7-5-13 0-20Z" fill="none" stroke="currentColor"/></svg>
-<svg class="ornament bottomRight" viewBox="0 0 160 92" aria-hidden="true"><path d="M8 78V50h17v28M25 78V35h30v43M55 78V26h22v52M77 78V43h17v35M94 78V34h28v44M122 78V51h19v27M4 78h145" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M39 35l8-8 8 8M61 26l8-9 8 9" fill="none" stroke="currentColor"/></svg>
-<svg class="ornament leftBottom" viewBox="0 0 60 70" aria-hidden="true"><path d="M30 64V8M30 20C16 13 10 5 8 0M30 30C43 24 50 17 53 11M30 20C21 28 12 28 3 25M30 30C38 39 47 40 56 36" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 10C20 18 19 27 30 34C41 27 40 18 30 10Z" fill="none" stroke="currentColor"/></svg>
+<div class="chronicle">
+  <div class="glow"></div>
+  <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
 
-<div class="hero">
-  <div class="kicker">Empire Календарь</div>
-  <div class="title">ХРОНИКИ ИМПЕРИИ</div>
-  <div class="subtitle">──── ✦ ────</div>
-</div>
+  <!-- detailed decorative illustrations -->
+  <svg class="art" style="left:-2px;top:-2px;width:98px;opacity:.82;filter:drop-shadow(0 6px 8px rgba(174,119,139,.16))" viewBox="0 0 120 110" aria-hidden="true">
+    <defs><linearGradient id="petalPink" x1="0" x2="1"><stop stop-color="#fff7f5"/><stop offset=".65" stop-color="#e9b7c4"/><stop offset="1" stop-color="#c88da0"/></linearGradient></defs>
+    <path d="M7 33C21 13 39 9 57 15c10 3 19 10 28 8 9-2 16-9 25-15" fill="none" stroke="#c5a07f" stroke-width="2"/>
+    <g fill="url(#petalPink)" stroke="#c28d9d" stroke-width="1">
+      <ellipse cx="20" cy="23" rx="9" ry="18" transform="rotate(-38 20 23)"/>
+      <ellipse cx="34" cy="18" rx="9" ry="17" transform="rotate(-10 34 18)"/>
+      <ellipse cx="45" cy="27" rx="9" ry="17" transform="rotate(28 45 27)"/>
+      <ellipse cx="31" cy="33" rx="8" ry="16" transform="rotate(58 31 33)"/>
+      <circle cx="33" cy="26" r="5" fill="#e1b276"/>
+    </g>
+    <g fill="none" stroke="#c69e7d" stroke-width="1.6">
+      <path d="M62 12c8 6 12 12 14 22M65 16c-5 7-6 12-5 18M83 8c7 5 12 12 14 20"/>
+      <path d="M75 38c5-9 12-14 22-16"/>
+    </g>
+  </svg>
 
-<div class="dateTime">
-  <div class="block date">
-    <div class="dateMark"><strong>14</strong></div>
-    <div><div class="eyebrow">Дата</div><div class="dateMonth">Серебряной Луны</div><div class="dateHint">четырнадцатый день</div></div>
-  </div>
-  <div class="block time">
-    <div class="eyebrow">Время суток</div>
-    <div class="timeValue">Полночь</div>
-    <div class="timeHint">тишина дворца</div>
-  </div>
-</div>
+  <svg class="art" style="right:-8px;top:0;width:94px;opacity:.76;filter:drop-shadow(0 0 14px rgba(154,186,221,.28))" viewBox="0 0 120 95" aria-hidden="true">
+    <defs><radialGradient id="moonG"><stop stop-color="#fffdfc"/><stop offset=".72" stop-color="#f1e5e5"/><stop offset="1" stop-color="#d9c7d4"/></radialGradient></defs>
+    <circle cx="79" cy="33" r="28" fill="url(#moonG)"/>
+    <circle cx="91" cy="25" r="25" fill="#edf2f5"/>
+    <g fill="#d7c9d3" opacity=".34">
+      <circle cx="69" cy="28" r="3"/><circle cx="82" cy="43" r="4"/><circle cx="90" cy="31" r="2.5"/><circle cx="72" cy="44" r="2"/>
+    </g>
+    <g fill="#c8a67f" opacity=".7"><circle cx="44" cy="17" r="1.7"/><circle cx="37" cy="35" r="1.2"/><circle cx="101" cy="55" r="1.4"/><circle cx="28" cy="23" r="1.1"/></g>
+  </svg>
 
-<div class="infoGrid">
-  <div class="block info">
-    <div class="topline"><span class="iconDot">☾</span><span class="eyebrow">Погода</span></div>
-    <div class="mainValue">Ясная ночь</div>
-    <div class="subValue">небо без облаков</div>
-  </div>
-  <div class="block info">
-    <div class="topline"><span class="iconDot">⌖</span><span class="eyebrow">Место</span></div>
-    <div class="mainValue">Северное крыло дворца</div>
-  </div>
-</div>
+  <div class="content">
+    <div class="header">
+      <div class="kicker">Empire Календарь</div>
+      <div class="title">ХРОНИКИ ИМПЕРИИ</div>
+      <div class="rule">✦ · · · ✦</div>
+    </div>
 
-<div class="block scene">
-  <div class="sceneRow">
-    <div class="sceneIcon">⌖</div>
-    <div><div class="eyebrow">Локация</div><div class="sceneValue">Северное крыло дворца</div></div>
-  </div>
-  <div class="sceneRow">
-    <div class="sceneIcon">✦</div>
-    <div><div class="eyebrow">Событие</div><div class="eventValue">Тайная аудиенция с наследным принцем</div></div>
-  </div>
-</div>
+    <div class="topGrid">
+      <div class="panel datePanel">
+        <div class="day">14</div>
+        <div style="min-width:0">
+          <div class="small">Дата</div>
+          <div class="month">Серебряной Луны</div>
+          <div class="dateSub">четырнадцатый день</div>
+        </div>
+      </div>
 
-<div class="divider"></div>
+      <div class="panel momentPanel">
+        <svg class="momentArt" viewBox="0 0 60 90" aria-hidden="true">
+          <defs><linearGradient id="glass" x1="0" x2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#d9e5ef"/><stop offset="1" stop-color="#b69778"/></linearGradient></defs>
+          <path d="M16 8h28M16 82h28M19 10c0 17 9 17 9 25s-9 8-9 25M41 10c0 17-9 17-9 25s9 8 9 25" fill="none" stroke="url(#glass)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M28 48c5-4 9-3 11 0l-3 10H25z" fill="#d8b2be" opacity=".8"/>
+        </svg>
+        <div style="min-width:0">
+          <div class="small">Время суток</div>
+          <div class="moment">Полночь</div>
+          <div class="weather">Ясная ночь</div>
+        </div>
+        <svg class="moonArt" viewBox="0 0 70 70" aria-hidden="true">
+          <defs><radialGradient id="m2"><stop stop-color="#fff"/><stop offset=".8" stop-color="#ede5ee"/><stop offset="1" stop-color="#cbb9ce"/></radialGradient></defs>
+          <circle cx="35" cy="35" r="21" fill="url(#m2)"/><circle cx="43" cy="28" r="19" fill="#eef2f5"/>
+          <path d="M16 20c8-5 13-6 18-6M49 49c5-2 8-5 10-9" fill="none" stroke="#c8a57f" stroke-width="1.6" opacity=".7"/>
+        </svg>
+      </div>
+    </div>
 
-<div class="status">
-  <div class="statusHead"><div class="statusTitle">СОСТОЯНИЕ</div><div class="statusNote">текущий запас</div></div>
+    <div class="panel scene">
+      <svg class="sceneArt" viewBox="0 0 220 130" aria-hidden="true">
+        <defs><linearGradient id="castleSky" y1="0" y2="1"><stop stop-color="#cbddef"/><stop offset="1" stop-color="#eadde2"/></linearGradient></defs>
+        <circle cx="172" cy="39" r="26" fill="#fff9fa" opacity=".85"/>
+        <circle cx="180" cy="33" r="23" fill="#edf3f7"/>
+        <path d="M46 110V71l15-12v-20h18v14h9V30h18v17h11V22h20v28h12v60z" fill="url(#castleSky)"/>
+        <path d="M55 72h17V93h9V61h15v39h10V52h14v48h10V44h13v66" fill="#d2dce8"/>
+        <path d="M36 112h166" stroke="#b89b90" stroke-width="2"/>
+        <g fill="#fff7f4" opacity=".78"><circle cx="63" cy="78" r="2"/><circle cx="105" cy="63" r="2"/><circle cx="139" cy="72" r="2"/><circle cx="164" cy="53" r="2"/></g>
+        <g fill="none" stroke="#c59f81" stroke-width="1.5"><path d="M13 97c11-8 19-18 23-30M18 102c15-6 23-15 28-26"/><path d="M20 76c5 4 8 7 11 13M25 70c3 5 6 8 11 11"/></g>
+      </svg>
+      <div class="sceneInner">
+        <div class="sceneHead"><div class="sceneTitle">ТЕКУЩАЯ СЦЕНА</div><div class="spark">✧</div></div>
 
-  <div class="stat">
-    <div class="statRow"><span>Бодрость</span><b>82%</b></div>
-    <div class="track"><div class="fill vigor"></div></div>
+        <div class="sceneRow">
+          <div class="sceneMark">⌖</div>
+          <div><div class="sceneLabel">Место</div><div class="sceneValue">Северное крыло дворца</div></div>
+        </div>
+
+        <div class="sceneRow">
+          <div class="sceneMark">✦</div>
+          <div><div class="sceneLabel">Событие</div><div class="eventValue">Тайная аудиенция с наследным принцем</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel status">
+      <div class="statusHead"><div class="statusTitle">СОСТОЯНИЕ</div><div class="statusNote">текущий запас</div></div>
+
+      <div class="stat">
+        <div class="statRow"><span>Бодрость</span><b>82%</b></div>
+        <div class="track"><div class="fill vigor"></div></div>
+      </div>
+
+      <div class="stat">
+        <div class="statRow"><span>Мана</span><b>74%</b></div>
+        <div class="track"><div class="fill magic"></div></div>
+      </div>
+
+      <div class="stat">
+        <div class="statRow"><span>Энергия</span><b>68%</b></div>
+        <div class="track"><div class="fill energy"></div></div>
+      </div>
+      <div class="resourceGem"></div>
+    </div>
+
+    <div class="footer">ИМПЕРСКИЙ КАЛЕНДАРЬ</div>
   </div>
-
-  <div class="stat">
-    <div class="statRow"><span>Мана</span><b>74%</b></div>
-    <div class="track"><div class="fill magic"></div></div>
-  </div>
-
-  <div class="stat">
-    <div class="statRow"><span>Энергия</span><b>68%</b></div>
-    <div class="track"><div class="fill energy"></div></div>
-  </div>
-  <div class="statusFooter">✦ · · · ✦</div>
-</div>
 </div>
 </body>
 </html>
