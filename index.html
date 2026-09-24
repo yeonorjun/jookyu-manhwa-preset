@@ -78,10 +78,8 @@ body{
   background:linear-gradient(135deg,rgba(243,238,246,.76),rgba(237,247,242,.73));
   display:flex;align-items:center;gap:8px;
 }
-.momentArt{width:28px;height:36px;flex:none;filter:drop-shadow(0 0 9px rgba(189,157,122,.18))}
 .moment{font-size:17px;line-height:1.02;font-weight:600;color:#596475;margin-top:2px}
 .weather{font-size:12px;color:#806d76;margin-top:2px}
-.moonArt{width:33px;height:33px;flex:none;margin-left:auto;filter:drop-shadow(0 0 10px rgba(155,186,221,.28))}
 .scene{
   margin-top:9px;padding:11px 12px 12px;border-radius:22px 18px 24px 17px;
   background:linear-gradient(145deg,rgba(255,252,247,.63),rgba(247,239,239,.52));
@@ -132,12 +130,18 @@ body{
 .footer{text-align:center;margin-top:7px;font-size:9px;letter-spacing:.22em;color:#bc9882}
 .footer:before,.footer:after{content:"";display:inline-block;width:34px;height:1px;vertical-align:middle;background:linear-gradient(90deg,transparent,#caa477);margin:0 7px}
 .footer:after{background:linear-gradient(90deg,#caa477,transparent)}
-@media(max-width:390px){.topGrid{grid-template-columns:1fr}.header{padding-left:38px;padding-right:38px}}
+@media(max-width:390px){.statusStats{grid-template-columns:1fr}.topGrid{grid-template-columns:1fr}.header{padding-left:38px;padding-right:38px}}
+
+.paintIcon{width:34px;height:42px;object-fit:cover;border-radius:13px;flex:none;opacity:.78;mix-blend-mode:multiply;filter:saturate(.72) sepia(.08) contrast(.94);box-shadow:0 5px 13px rgba(151,124,130,.10)}
+.hourglassIcon{object-position:center;}.moonIcon{width:40px;height:40px;border-radius:50%;margin-left:auto;object-position:center}
+.sceneMark{width:30px;height:30px;border-radius:10px;overflow:hidden;border:1px solid rgba(181,138,98,.20);box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 4px 10px rgba(120,102,111,.08);background-position:center;background-size:cover;position:relative}
+.sceneMark:after{content:"";position:absolute;inset:0;background:rgba(255,247,243,.30)}
+.locationArt{background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Beiteddine_Palace_%28Watercolor%29.png")}
+.eventArt{background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Reinhard_Weguelin_%E2%80%93_Cherry_Blossom_%281905%29.jpg")}
 </style>
 </head>
 <body>
 <div class="chronicle">
-  <div class="glow"></div>
   <div class="artBloom"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Reinhard_Weguelin_%E2%80%93_Cherry_Blossom_%281905%29.jpg" alt=""></div>
   <div class="artMoon"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Harvest_Moon_-_Charles_Rennie_Mackintosh_-_1892.jpg" alt=""></div>
   <div class="content">
@@ -158,21 +162,13 @@ body{
       </div>
 
       <div class="panel momentPanel">
-        <svg class="momentArt" viewBox="0 0 60 90" aria-hidden="true">
-          <defs><linearGradient id="glass" x1="0" x2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#d9e5ef"/><stop offset="1" stop-color="#b69778"/></linearGradient></defs>
-          <path d="M16 8h28M16 82h28M19 10c0 17 9 17 9 25s-9 8-9 25M41 10c0 17-9 17-9 25s9 8 9 25" fill="none" stroke="url(#glass)" stroke-width="4" stroke-linecap="round"/>
-          <path d="M28 48c5-4 9-3 11 0l-3 10H25z" fill="#d8b2be" opacity=".8"/>
-        </svg>
+        <img class="paintIcon hourglassIcon" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hour_Glass.jpg" alt="">
         <div style="min-width:0">
           <div class="small">Время суток</div>
           <div class="moment">Полночь</div>
           <div class="weather">Ясная ночь</div>
         </div>
-        <svg class="moonArt" viewBox="0 0 70 70" aria-hidden="true">
-          <defs><radialGradient id="m2"><stop stop-color="#fff"/><stop offset=".8" stop-color="#ede5ee"/><stop offset="1" stop-color="#cbb9ce"/></radialGradient></defs>
-          <circle cx="35" cy="35" r="21" fill="url(#m2)"/><circle cx="43" cy="28" r="19" fill="#eef2f5"/>
-          <path d="M16 20c8-5 13-6 18-6M49 49c5-2 8-5 10-9" fill="none" stroke="#c8a57f" stroke-width="1.6" opacity=".7"/>
-        </svg>
+        <img class="paintIcon moonIcon" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Harvest_Moon_-_Charles_Rennie_Mackintosh_-_1892.jpg" alt="">
       </div>
     </div>
 
@@ -181,12 +177,12 @@ body{
         <div class="sceneHead"><div class="sceneTitle">ТЕКУЩАЯ СЦЕНА</div><div class="spark">✧</div></div>
 
         <div class="sceneRow">
-          <div class="sceneMark">⌖</div>
+          <div class="sceneMark locationArt"></div>
           <div><div class="sceneLabel">Место</div><div class="sceneValue">Северное крыло дворца</div></div>
         </div>
 
         <div class="sceneRow">
-          <div class="sceneMark">✦</div>
+          <div class="sceneMark eventArt"></div>
           <div><div class="sceneLabel">Событие</div><div class="eventValue">Тайная аудиенция с наследным принцем</div></div>
         </div>
       </div>
@@ -194,18 +190,17 @@ body{
 
     <div class="panel status">
       <div class="statusHead"><div class="statusTitle">СОСТОЯНИЕ</div><div class="statusNote">текущий запас</div></div>
-
-      <div class="statusStats"><div class="stat"><div class="statRow"><span>Бодрость</span><b>82%</b></div>
-        <div class="track"><div class="fill vigor"></div></div>
+      <div class="statusStats">
+        <div class="stat">
+          <div class="statRow"><span>Бодрость</span><b>82%</b></div>
+          <div class="track"><div class="fill vigor"></div></div>
+        </div>
+        <div class="stat">
+          <div class="statRow"><span>Мана</span><b>74%</b></div>
+          <div class="track"><div class="fill magic"></div></div>
+        </div>
       </div>
-
-      <div class="stat">
-        <div class="statRow"><span>Мана</span><b>74%</b></div>
-        <div class="track"><div class="fill magic"></div></div>
-      </div>
-
-      
-      <div class="resourceGem"></div>
+      <div class="statusFooter">✦ · · · ✦</div>
     </div>
 
     <div class="footer">ИМПЕРСКИЙ КАЛЕНДАРЬ</div>
