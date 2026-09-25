@@ -28,10 +28,10 @@
       border-radius: 12px; pointer-events: none; z-index: 10;
     }
 
-    /* Узоры по углам (pattern1 отзеркаленный) */
+    /* Узоры по углам (Опущены на top: 12px) */
     .aut-corner { position: absolute; width: 65px; z-index: 15; opacity: 0.85; filter: sepia(0.4) hue-rotate(-10deg); pointer-events: none; }
-    .ac-tl { top: 8px; left: 8px; }
-    .ac-tr { top: 8px; right: 8px; transform: scaleX(-1); }
+    .ac-tl { top: 12px; left: 8px; }
+    .ac-tr { top: 12px; right: 8px; transform: scaleX(-1); }
 
     /* Лепестки сакуры */
     .petals { position: absolute; inset: 0; pointer-events: none; z-index: 12; overflow: hidden; border-radius: 16px; }
@@ -61,7 +61,7 @@
       border: 1px solid #d4b895;
     }
 
-    /* Заголовок (уменьшены отступы) */
+    /* Заголовок */
     .aut-header { text-align: center; margin-bottom: 6px; position: relative; z-index: 20; }
     .aut-title {
       font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
@@ -79,7 +79,7 @@
       font-style: italic; color: #4e3843; text-align: center;
     }
 
-    /* Разделитель перед действием (поджатый) */
+    /* Разделитель перед действием */
     .aut-divider {
       height: 1px; width: 50%; margin: 8px auto 6px;
       background: linear-gradient(90deg, transparent, rgba(205, 164, 180, 0.45), transparent);
