@@ -1,0 +1,180 @@
+<div class="author-master-container" style="position:relative; width: 100%;">
+  
+  <div class="raw-data" style="display:none;">$1</div>
+
+  <div id="aut-wrap-{{random}}" style="max-width:390px; margin:15px auto 20px; position:relative;">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700;italic&display=swap');
+
+    @keyframes floatAuthor { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    @keyframes fall { 0% { top: -10%; transform: rotate(0deg); opacity: 0; } 15% { opacity: 0.8; } 85% { opacity: 0.8; } 100% { top: 110%; transform: rotate(360deg); opacity: 0; } }
+    @keyframes sway { 0% { margin-left: 0px; } 100% { margin-left: 12px; } }
+
+    /* Карточка-рукопись */
+    .aut-card {
+      width: 100%; box-sizing: border-box; position: relative; overflow: hidden;
+      background: #fdfaf6;
+      background-image: radial-gradient(circle at 50% 0%, #fffbf8 0%, #faedf0 60%, #f7e6ea 100%);
+      border: 1px solid #d8bfd8; border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(130, 95, 105, 0.12), inset 0 0 25px rgba(255, 255, 255, 0.9);
+      padding: 18px 16px 13px;
+      color: #5a4538; font-family: 'Cormorant Garamond', serif;
+      animation: floatAuthor 6s ease-in-out infinite;
+    }
+
+    .aut-card::before {
+      content: ''; position: absolute; inset: 5px;
+      border: 1px solid rgba(212, 175, 185, 0.45);
+      border-radius: 12px; pointer-events: none; z-index: 10;
+    }
+
+    /* Узоры по углам (pattern1 отзеркаленный) */
+    .aut-corner { position: absolute; width: 65px; z-index: 15; opacity: 0.85; filter: sepia(0.4) hue-rotate(-10deg); pointer-events: none; }
+    .ac-tl { top: 8px; left: 8px; }
+    .ac-tr { top: 8px; right: 8px; transform: scaleX(-1); }
+
+    /* Лепестки сакуры */
+    .petals { position: absolute; inset: 0; pointer-events: none; z-index: 12; overflow: hidden; border-radius: 16px; }
+    .petals i {
+      position: absolute; display: block; width: 7px; height: 7px;
+      background: linear-gradient(135deg, #ffb6c1, #fff); border-radius: 15px 0 15px 0; opacity: 0;
+      animation: fall 7s linear infinite, sway 2s ease-in-out infinite alternate;
+    }
+    .petals i:nth-child(1) { left: 15%; animation-delay: 0s; width: 6px; height: 6px; }
+    .petals i:nth-child(2) { left: 45%; animation-delay: 3s; }
+    .petals i:nth-child(3) { left: 75%; animation-delay: 1.5s; width: 8px; height: 8px; background: linear-gradient(135deg, #f8c8d2, #fff); }
+    .petals i:nth-child(4) { left: 88%; animation-delay: 4.5s; width: 5px; height: 5px; }
+
+    /* Золотая булавка с жемчужиной */
+    .aut-pin {
+      position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; justify-content: center; z-index: 25;
+    }
+    .aut-pin-needle {
+      width: 36px; height: 2px; background: linear-gradient(90deg, transparent, #cda4b4, #b58a43, transparent);
+      border-radius: 2px;
+    }
+    .aut-pin-pearl {
+      position: absolute; top: -4px; width: 9px; height: 9px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #faedf0 50%, #cda4b4 100%);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2), 0 0 4px rgba(255,255,255,0.8);
+      border: 1px solid #d4b895;
+    }
+
+    /* Заголовок (уменьшены отступы) */
+    .aut-header { text-align: center; margin-bottom: 6px; position: relative; z-index: 20; }
+    .aut-title {
+      font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: #856772;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+    }
+    .aut-flourish {
+      margin: 1px 0 0; color: #cda4b4; font-size: 11px; letter-spacing: 2px; line-height: 1;
+    }
+
+    /* Текст комментария */
+    .aut-comment-box { position: relative; z-index: 20; padding: 0 8px; margin-top: 4px; }
+    .aut-comment {
+      font-family: 'Cormorant Garamond', serif; font-size: 16px; line-height: 1.45;
+      font-style: italic; color: #4e3843; text-align: center;
+    }
+
+    /* Разделитель перед действием (поджатый) */
+    .aut-divider {
+      height: 1px; width: 50%; margin: 8px auto 6px;
+      background: linear-gradient(90deg, transparent, rgba(205, 164, 180, 0.45), transparent);
+      position: relative; z-index: 20;
+    }
+
+    /* Действие автора */
+    .aut-action-box {
+      text-align: center; position: relative; z-index: 20;
+    }
+    .aut-action {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif; font-size: 13px; font-style: italic;
+      color: #946c77; letter-spacing: 0.3px; opacity: 0.95; line-height: 1.2;
+    }
+    </style>
+
+    <div class="aut-card">
+      
+      <!-- Узоры по углам -->
+      <img class="aut-corner ac-tl" src="https://github.com/yeonorjun/jookyu-manhwa-preset/blob/main/pattern1.png?raw=true" alt="">
+      <img class="aut-corner ac-tr" src="https://github.com/yeonorjun/jookyu-manhwa-preset/blob/main/pattern1.png?raw=true" alt="">
+
+      <!-- Падающие лепестки -->
+      <div class="petals"><i></i><i></i><i></i><i></i></div>
+
+      <!-- Золотая булавка -->
+      <div class="aut-pin">
+        <div class="aut-pin-needle"></div>
+        <div class="aut-pin-pearl"></div>
+      </div>
+
+      <!-- Заголовок -->
+      <div class="aut-header">
+        <div class="aut-title">✦ СЛОВО АВТОРА ✦</div>
+        <div class="aut-flourish">⋆ ༺ ✦ ༻ ⋆</div>
+      </div>
+
+      <!-- Комментарий -->
+      <div class="aut-comment-box">
+        <div class="aut-comment v-comment">...</div>
+      </div>
+
+      <div class="aut-divider r-divider"></div>
+
+      <!-- Действие автора -->
+      <div class="aut-action-box r-action">
+        <div class="aut-action v-action"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var script = document.currentScript;
+    var container = script.parentElement;
+    
+    var rawHtml = container.querySelector('.raw-data').innerHTML;
+    var txtArea = document.createElement("textarea");
+    txtArea.innerHTML = rawHtml.replace(/<br\s*\/?>/gi, '\n').replace(/<\/p>|<\/div>/gi, '\n').replace(/<[^>]+>/g, '');
+    var cleanText = txtArea.value;
+
+    var lines = cleanText.split('\n');
+    var data = { comment: '', action: '' };
+    var currentKey = null;
+
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        var m = line.match(/^(comment|text|action|mood):\s*(.*)/i);
+        if (m) {
+            var k = m[1].toLowerCase();
+            currentKey = (k === 'text') ? 'comment' : ((k === 'mood') ? 'action' : k);
+            data[currentKey] = m[2];
+        } else if (currentKey && line !== '') {
+            data[currentKey] += ' ' + line;
+        }
+    }
+
+    var wrap = container.querySelector('[id^="aut-wrap"]');
+
+    wrap.querySelector('.v-comment').textContent = data.comment || '...';
+
+    var actEl = wrap.querySelector('.v-action');
+    var actBox = wrap.querySelector('.r-action');
+    var divEl = wrap.querySelector('.r-divider');
+    
+    if (data.action && data.action.trim()) {
+        var cleanAct = data.action.trim().replace(/^[*_~]+|[*_~]+$/g, '');
+        actEl.textContent = '* ' + cleanAct + ' *';
+    } else {
+        actBox.style.display = 'none';
+        divEl.style.display = 'none';
+    }
+
+  })();
+  </script>
+</div>
