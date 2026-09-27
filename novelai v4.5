@@ -1,0 +1,413 @@
+// Яндекс Облако · Cloud Function · NovelAI прокси
+
+// Среда выполнения: Node.js 18 (или новее)
+
+const zlib = require('zlib');
+
+
+
+// ПИНГ: прозрачный PNG 1x1 в base64
+
+const PING_PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+
+
+
+// 1. ВСТАВЬТЕ СЮДА ВАШ ТОКЕН ОТ NOVELAI (Account -> Persistent API Token)
+
+const NOVELAI_TOKEN = "pst-59s36mvrOLWzKG0h-A6VCnSNswEli55Buqx1hvhtn0ihg6V7VTLKTpoNLV-2aOJ7";
+
+
+
+// 2. ВСТАВЬТЕ СЮДА ВАШИ ЖЕЛАЕМЫЕ ТЕГИ / СТИЛЬ (или оставьте пустым: "")
+
+// Важно: в конце строки обязательно поставьте запятую с пробелом: ", "
+
+const NAI_STYLE = "1.6::obj Shep::, 1.6::rella::, 1.9::fengjian yuzhi::, 0.4::kagoya1219 ::, 1.8::pigeon666 ::, 0.7::96yottea::, 0.8::aoma xuanzexuexi::, 0.5::vlfdus 0 ::, 0.8::kuby_hq::, 1.8::nocetus::, 2.0::cinematic filter::, lart art1, zero_q_0q, year 2025, 1.4::teeniika::, 1.7::dang0_23 ::, 1.4::mgong520 ::, 1.1::sanbonzakura::, 0.5::umikochannart::, bang dacy, 0.7::blackbox::, best quality, very aesthetic, adult characters, clean lineart, clean coloring, sharp focus, dramatic shadows, brushwork, 3: detailed eyes, detailed hair, detailed face::, 3::pale natural skin::, 2::no_watermark::, ";
+
+
+
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+
+
+module.exports.handler = async function (event) {
+
+  const params = event.queryStringParameters || {};
+
+
+
+  // ПИНГ для диагностики (бесплатно, NovelAI не трогает)
+
+  if (params.ping) {
+
+    return {
+
+      statusCode: 200,
+
+      headers: { "Content-Type": "image/png", "Access-Control-Allow-Origin": "*" },
+
+      isBase64Encoded: true,
+
+      body: PING_PNG_B64
+
+    };
+
+  }
+
+
+
+  const desc = params.prompt || "";
+
+  const prompt = NAI_STYLE + desc;
+
+  if (!prompt) {
+
+    return {
+
+      statusCode: 200,
+
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+
+      body: "Функция работает! Добавьте ?prompt=... в ссылку."
+
+    };
+
+  }
+
+
+
+  let aspectRatio = params.aspect_ratio || "3:2";
+
+  let width = 1216, height = 832;
+
+  if (aspectRatio === "1:1") { width = 1024; height = 1024; }
+
+  else if (aspectRatio === "2:3") { width = 832; height = 1216; }
+
+  else if (aspectRatio === "19:6" || aspectRatio === "16:9") { width = 1344; height = 768; }
+
+  else if (aspectRatio === "6:19" || aspectRatio === "9:16") { width = 768; height = 1344; }
+
+
+
+  // УСИЛЕННЫЙ НЕГАТИВ: анатомия + дефекты + артефакты
+
+  const negPrompt = "lowres, bad anatomy, bad hands, bad feet, bad proportions, malformed limbs, mutated hands, poorly drawn hands, poorly drawn face, fused fingers, too many fingers, missing fingers, extra digit, fewer digits, extra limbs, extra arms, extra legs, missing arms, missing legs, long neck, cross-eyed, deformed, disfigured, mutated, mutilated, ugly, duplicate, morbid, gross proportions, bad body, text, error, cropped, out of frame, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, bad art, beginner, amateur";
+
+
+
+  // Генерация с автоподрезкой промпта: полный → 1500 → 900 → 500 символов
+
+  const limits = [prompt.length, 1500, 900, 500];
+
+
+
+  let response = null, lastErr = "";
+
+  outer:
+
+  for (const lim of limits) {
+
+    const p = prompt.slice(0, lim);
+
+    const body = {
+
+      input: p,
+
+      model: "nai-diffusion-4-5-full",
+
+      action: "generate",
+
+      parameters: {
+
+        width: width,
+
+        height: height,
+
+        scale: 6,
+
+        sampler: "k_euler_ancestral",
+
+        steps: 28,
+
+        n_samples: 1,
+
+        ucPreset: 0,
+
+        qualityToggle: false,
+
+        noise_schedule: "karras",
+
+        negative_prompt: negPrompt,
+
+        v4_prompt: {
+
+          caption: { base_caption: p, char_captions: [] },
+
+          use_coords: false,
+
+          use_order: true
+
+        },
+
+        v4_negative_prompt: {
+
+          caption: { base_caption: negPrompt, char_captions: [] },
+
+          use_coords: false,
+
+          use_order: true
+
+        }
+
+      }
+
+    };
+
+
+
+    // До 8 попыток при ошибке 429 (занятость сервиса)
+
+    for (let attempt = 0; attempt < 8; attempt++) {
+
+      const ctrl = new AbortController();
+
+      const killer = setTimeout(() => ctrl.abort(), 90000);
+
+      try {
+
+        response = await fetch("https://image.novelai.net/ai/generate-image", {
+
+          method: "POST",
+
+          headers: {
+
+            "Authorization": `Bearer ${NOVELAI_TOKEN}`,
+
+            "Content-Type": "application/json",
+
+            "Origin": "https://novelai.net",
+
+            "Referer": "https://novelai.net/",
+
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+          },
+
+          body: JSON.stringify(body),
+
+          signal: ctrl.signal
+
+        });
+
+      } catch (e) {
+
+        clearTimeout(killer);
+
+        return {
+
+          statusCode: 504,
+
+          headers: { "Content-Type": "text/plain; charset=utf-8", "Access-Control-Allow-Origin": "*" },
+
+          body: "NovelAI не ответил за 90 секунд — перегружен или лежит. Попробуй позже."
+
+        };
+
+      }
+
+      clearTimeout(killer);
+
+
+
+      if (response.ok) break outer;
+
+
+
+      lastErr = await response.text();
+
+      if (response.status === 429) {
+
+        await sleep(6000);
+
+        continue;
+
+      }
+
+      if (response.status === 400) {
+
+        response = null;
+
+        continue outer;
+
+      }
+
+      break outer;
+
+    }
+
+
+
+    break;
+
+  }
+
+
+
+  if (!response || !response.ok) {
+
+    return {
+
+      statusCode: response ? response.status : 400,
+
+      headers: { "Content-Type": "text/plain; charset=utf-8", "Access-Control-Allow-Origin": "*" },
+
+      body: `Ошибка NovelAI: ${lastErr}`
+
+    };
+
+  }
+
+
+
+  const buf = Buffer.from(await response.arrayBuffer());
+
+
+
+  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) {
+
+    return {
+
+      statusCode: 200,
+
+      headers: { "Content-Type": "image/png", "Access-Control-Allow-Origin": "*" },
+
+      isBase64Encoded: true,
+
+      body: buf.toString("base64")
+
+    };
+
+  }
+
+
+
+  const compressed = getExactCompressedData(buf);
+
+  if (!compressed) {
+
+    return {
+
+      statusCode: 500,
+
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+
+      body: "Не удалось распознать структуру архива NovelAI."
+
+    };
+
+  }
+
+
+
+  let png;
+
+  try {
+
+    png = zlib.inflateRawSync(compressed);
+
+  } catch (e) {
+
+    return {
+
+      statusCode: 500,
+
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+
+      body: "Ошибка распаковки архива: " + e.message
+
+    };
+
+  }
+
+
+
+  return {
+
+    statusCode: 200,
+
+    headers: { "Content-Type": "image/png", "Access-Control-Allow-Origin": "*" },
+
+    isBase64Encoded: true,
+
+    body: png.toString("base64")
+
+  };
+
+};
+
+
+
+function getExactCompressedData(buf) {
+
+  let eocdIndex = -1;
+
+  for (let i = buf.length - 22; i >= 0; i--) {
+
+    if (buf[i] === 0x50 && buf[i+1] === 0x4b && buf[i+2] === 0x05 && buf[i+3] === 0x06) {
+
+      eocdIndex = i;
+
+      break;
+
+    }
+
+  }
+
+  if (eocdIndex === -1) return null;
+
+
+
+  const cdOffset = buf.readUInt32LE(eocdIndex + 16);
+
+
+
+  if (buf[0] !== 0x50 || buf[1] !== 0x4b || buf[2] !== 0x03 || buf[3] !== 0x04) return null;
+
+
+
+  const flags = buf.readUInt16LE(6);
+
+  const hasDataDescriptor = (flags & 8) !== 0;
+
+  const nameLen = buf.readUInt16LE(26);
+
+  const extraLen = buf.readUInt16LE(28);
+
+
+
+  const dataStart = 30 + nameLen + extraLen;
+
+  let dataEnd = cdOffset;
+
+
+
+  if (hasDataDescriptor) {
+
+    if (buf[cdOffset - 16] === 0x50 && buf[cdOffset - 15] === 0x4b && buf[cdOffset - 14] === 0x07 && buf[cdOffset - 13] === 0x08) {
+
+      dataEnd = cdOffset - 16;
+
+    } else {
+
+      dataEnd = cdOffset - 12;
+
+    }
+
+  }
+
+
+
+  return buf.subarray(dataStart, dataEnd);
+
+}
